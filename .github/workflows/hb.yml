@@ -29,6 +29,19 @@ jobs:
         run: |
           echo "User input is: ${{ github.event.inputs.example_input }}"
 
+      - name: Check the User Input
+        run: |
+          if [ "${{ github.event.inputs.example_input }}" == "staging" ]; then
+            echo "Staging environment selected."
+            echo "I am from ${{ github.event.inputs.example_input }}. Habib is a great developer."
+          elif [ "${{ github.event.inputs.example_input }}" == "production" ]; then
+            echo "Production environment selected."
+            echo "I am from ${{ github.event.inputs.example_input }}. Habib is a great developer."
+          else
+            echo "Unknown environment selected."
+            exit 1
+          fi
+
       - name: print content of the text file
         run: |
           cat habib.txt
