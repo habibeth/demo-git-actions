@@ -15,21 +15,33 @@ on:
           - production
 
 
-
+env: 
+  hb: 'hello world!'
 
 jobs: 
   print_txt_file:
     runs-on: ubuntu-latest
 
+    env: 
+      hb: ${{ secrets.HB_ENV }}
+
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Print HB_ENV Variable from GitHub Secrets
+        run: |
+          echo "HB_ENV is: ${{ secrets.HB_ENV }}"
+
+      - name: Print Environment Variable
+        run: |
+          echo "Environment variable hb is: $hb"
 
       - name: Print User Input
         run: |
           echo "User input is: ${{ github.event.inputs.example_input }}"
 
-      - name: Check the User Input
+      - name: Check the User Input Which is Selected
         run: |
           if [ "${{ github.event.inputs.example_input }}" == "staging" ]; then
             echo "Staging environment selected."
